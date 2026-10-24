@@ -1,3 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文法通 第1課＋第3課　重點整理與測驗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{
+ --ink:#20314f;--muted:#6b7a99;--bg:#f4faff;--card:#fff;--line:#e3eef9;
+ --A:#2f9bff;--As:#e6f3ff;--B:#1fc08a;--Bs:#dff8ee;--C:#ff9a3d;--Cs:#fff0dd;--D:#8b6cff;--Ds:#efe9ff;--F:#ff6b9a;--Fs:#ffe6ee;--G:#14b8a6;--Gs:#d9f6f2;--yel:#ffd84a;
+ --ok:#1fc08a;--okS:#dcf8ec;--bad:#ff5d5d;--badS:#ffe6e6;--sh:0 10px 30px rgba(32,49,79,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body,button,select,input,textarea{font-family:"Huninn","jf-openhuninn-2.1","Yuanti TC","Hiragino Maru Gothic ProN","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+body{margin:0;color:var(--ink);line-height:1.75;background:var(--bg);background-image:radial-gradient(#dcebf9 1.4px,transparent 1.4px);background-size:26px 26px}
+.u2,.s-A,.t-A{--g:var(--A);--gs:var(--As)}
+.u3,.s-B,.t-B{--g:var(--B);--gs:var(--Bs)}
+.u4,.s-C,.t-C{--g:var(--C);--gs:var(--Cs)}
+.u5,.s-D,.t-D{--g:var(--D);--gs:var(--Ds)}
+.u6,.s-E,.t-E{--g:var(--F);--gs:var(--Fs)}
+.u7,.s-F,.t-F{--g:var(--G);--gs:var(--Gs)}
+.wrap{max-width:960px;margin:0 auto;padding:16px 14px 70px}
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:30px;padding:22px 26px;background:linear-gradient(135deg,#d9efff 0%,#e8fff5 60%,#fff4e0 100%);box-shadow:var(--sh);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;opacity:.5}
+.hero::before{width:150px;height:150px;right:-30px;top:-50px;background:#ffe39a}
+.hero::after{width:90px;height:90px;right:90px;bottom:-40px;background:#bfe6ff}
+.hero>*{position:relative;z-index:1}
+.hero h1{margin:0;font-size:clamp(26px,5vw,38px);letter-spacing:1px}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 60%,var(--yel) 60%);padding:0 4px}
+.hero p{margin:2px 0 0;color:var(--muted);font-size:15px}
+.hero-r{display:flex;flex-direction:column;gap:8px;min-width:240px}
+.prog{height:14px;border-radius:99px;background:rgba(255,255,255,.8);overflow:hidden}
+.prog>i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--A),var(--B),var(--C));transition:width .4s}
+#progTxt{font-size:13.5px;font-weight:700;color:var(--muted)}
+#scorebar{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#fff;border-radius:999px;padding:0 10px;font-size:13px;box-shadow:0 2px 6px rgba(32,49,79,.08)}
+.chip b{color:var(--ink)}
+/* sticky nav */
+.sticky{padding:10px 0 6px}
+@media(min-width:900px){.sticky{position:sticky;top:0;z-index:30;background:linear-gradient(var(--bg) 85%,rgba(244,250,255,0))}}
+#topnav{display:flex;flex-wrap:wrap;gap:8px;padding:4px 2px 8px}
+.tab{flex:none;border:none;background:#fff;color:var(--ink);border-radius:999px;padding:8px 18px;font-size:15.5px;cursor:pointer;box-shadow:0 3px 10px rgba(32,49,79,.08)}
+.tab small{display:none}
+.tab.on{background:var(--g,var(--yel));color:#fff;box-shadow:0 6px 16px rgba(32,49,79,.18)}
+.tab.t-sum.on{background:var(--yel);color:var(--ink)}
+.tab.t-wr.on{background:var(--ink);color:#fff}
+#wrongBadge{display:inline-block;min-width:22px;margin-left:6px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;font-size:12.5px}
+.stages{display:none;flex-wrap:wrap;gap:8px;padding:4px 2px 6px}
+.stages.show{display:flex}
+.stl{flex:none;align-self:center;font-size:12.5px;font-weight:700;color:var(--g);padding-right:4px}
+.bb{flex:none;position:relative;display:flex;align-items:center;gap:8px;border:2px solid var(--gs);background:#fff;border-radius:999px;padding:3px 14px 3px 4px;cursor:pointer;color:var(--ink);font-size:13.5px;max-width:230px}
+.bb b{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--gs);color:var(--g);align-items:center;justify-content:center;font-size:14px;flex:none}
+.bb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bb.done{border-color:#ffc98a;background:#fff8ee}
+.bb.done b{background:#ffe2b8;color:#c26a00}
+.bb.perfect{border-color:var(--yel)}
+.bb.perfect b{background:var(--yel);color:#7a5a00}
+.bb.perfect::after{content:"★";position:absolute;top:-8px;right:4px;color:#ffb400;font-size:15px}
+.bb.on{background:var(--g);border-color:var(--g);color:#fff}
+.bb.on b{background:#fff;color:var(--g)}
+/* pages and cards */
+.page{display:none}.page.on{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--sh);padding:24px 26px;margin:18px 0;position:relative}
+.card::before{content:"";position:absolute;left:26px;top:0;width:64px;height:7px;border-radius:0 0 8px 8px;background:var(--g,var(--yel))}
+.card h2{margin:0 0 10px;font-size:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card h3{margin:18px 0 6px;font-size:16.5px;color:var(--g,var(--muted))}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 10px;border-radius:15px;font-weight:800;background:var(--g,var(--yel));color:#fff;font-size:15px;box-shadow:0 5px 12px rgba(32,49,79,.15)}
+.qhead{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.qhead h2{margin:0}
+.ins{background:var(--gs,#fff7d6);border-radius:16px;padding:9px 14px;margin:0 0 14px;font-size:14.5px}
+.unit-title{font-size:23px;margin:26px 0 0;padding:15px 22px;border-radius:22px;color:#fff;box-shadow:var(--sh);letter-spacing:1px}
+.unit-title.a{background:linear-gradient(120deg,#2f9bff,#6c7bff)}
+.unit-title.b{background:linear-gradient(120deg,#1fc08a,#18b3d6)}
+.unit-title.c{background:linear-gradient(120deg,#ff9a3d,#ff6b6b)}
+.en{font-weight:700;color:#1e63d6;background:linear-gradient(transparent 58%,#fff0a6 58%);padding:0 3px;border-radius:3px}
+.u3 .en{color:#0f8a63}.u4 .en{color:#c25e00}
+.ex{margin:3px 0 8px 14px;font-size:15px}
+.ex .zh{color:var(--muted);font-size:14px;margin-left:6px}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:15px;margin:10px 0;border-radius:16px;overflow:hidden;box-shadow:0 0 0 2px var(--gs,var(--line))}
+th,td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+tr:last-child th,tr:last-child td{border-bottom:none}
+th:last-child,td:last-child{border-right:none}
+th{background:var(--gs,#f1f7ff);color:var(--ink)}
+.tablewrap{overflow-x:auto}
+.tip{border-radius:18px;background:#fff8d9;padding:11px 16px;margin:12px 0;font-size:15px;position:relative}
+.warn{background:#ffe9e9}
+.no{color:var(--bad);font-weight:700}.yes{color:#0f9d6b;font-weight:700}
+.pill{display:inline-block;padding:0 10px;border-radius:999px;background:var(--gs,#eaf1fb);margin:2px 3px;font-size:13.5px;font-weight:700}
+.must{display:inline-block;background:#ff5d5d;color:#fff;border-radius:999px;padding:0 11px;font-size:13px;margin-left:4px}
+.star{display:inline-block;background:#fff0a6;color:#9a6a00;border-radius:999px;padding:0 10px;font-size:13px;margin-left:4px}
+.cl{display:inline-block;padding:1px 10px;border-radius:12px;margin:3px 2px;font-weight:700}
+.cl.mc{background:#d8ebff;color:#1b66c9}
+.cl.sc{background:#ffe9a8;color:#8a5a00}
+.cl.cj{background:#ffd3d3;color:#c42d2d}
+.cl.io{background:#d3f6e6;color:#0b8a5c}
+.cl.do{background:#e6dcff;color:#6a45d6}
+.cl.vb{background:#e9edf3;color:#20314f}
+.cl.pp{background:#ffd9ec;color:#c2207a}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:12px 0}
+.flow>div{flex:1 1 180px;border-radius:18px;padding:10px 14px;background:var(--gs,#eef6ff);font-size:15px}
+.flow>div b{display:block;color:var(--g,var(--A))}
+.flow>i{align-self:center;font-style:normal;font-weight:800;font-size:22px;color:var(--muted)}
+.read{background:#f4f9ff;border-left:6px solid var(--g);border-radius:14px;padding:12px 16px;margin:8px 0 14px}
+.inv{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.inv span{border-radius:999px;padding:2px 14px;background:var(--gs);color:var(--ink);font-size:14.5px}
+.ab{background:#f4f9ff;border-radius:16px;padding:9px 14px;margin:4px 0 8px;font-size:16px;line-height:1.95}
+/* questions */
+.q ol{list-style:none;counter-reset:q;margin:6px 0;padding:0}
+.q li{counter-increment:q;position:relative;padding:13px 4px 13px 50px;border-bottom:2px dotted var(--line);font-size:17px}
+.q li:last-child{border-bottom:none}
+.q li::before{content:counter(q);position:absolute;left:4px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--gs);color:var(--g);font-weight:800;font-size:14.5px;display:flex;align-items:center;justify-content:center}
+.q p{margin:9px 0;font-size:17px}
+.q hr{border:none;border-top:2px dotted var(--line);margin:14px 0}
+.num{font-size:11.5px;color:#fff;background:var(--g);border-radius:8px;padding:0 6px;margin:0 3px 0 5px;vertical-align:super}
+select,input[type=text]{font-size:16px;border:2px solid #cfe3f7;border-radius:14px;padding:3px 11px;background:#fff;color:var(--ink);margin:0 3px;max-width:100%}
+input[type=text]{text-align:center}
+select:focus,input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px var(--gs)}
+select:disabled,input:disabled{opacity:1;color:var(--ink)}
+.ok{background:var(--okS)!important;border-color:var(--ok)!important}
+.bad{background:var(--badS)!important;border-color:var(--bad)!important}
+.xp{margin:8px 0 2px;padding:9px 14px;border-radius:16px;font-size:14.5px;line-height:1.65}
+.xp.okx{background:var(--okS)}
+.xp.badx{background:var(--badS)}
+.why{margin-top:3px;color:#3b4660}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.btn{border:none;border-radius:999px;padding:10px 22px;font-size:15.5px;background:var(--g,var(--A));color:#fff;cursor:pointer;box-shadow:0 6px 14px rgba(32,49,79,.15)}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:0 0 0 2px var(--line)}
+.res{font-size:17px;font-weight:700}
+.pn{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:14px;border-top:2px dotted var(--line)}
+.zhq{font-weight:700;margin-bottom:6px}
+.ordans{min-height:48px;border:2px dashed #bcd6ee;border-radius:16px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fbfdff}
+.ordbank{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.tok{font-size:15.5px;border:none;border-radius:999px;padding:5px 14px;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 0 0 2px var(--gs),0 3px 0 var(--gs)}
+.ordans .tok{background:var(--gs);box-shadow:0 3px 0 rgba(32,49,79,.08)}
+.tok:disabled{cursor:default}
+.ordans.ok{background:var(--okS);border-color:var(--ok)}
+.ordans.bad{background:var(--badS);border-color:var(--bad)}
+.q li .ordval{display:none}
+.rv{border-radius:24px;padding:16px 20px;margin:14px 0;background:#fff;box-shadow:var(--sh)}
+.rv .rvh{font-size:13px;color:var(--muted);margin-bottom:4px}
+.rv .rvq{font-size:17px}
+.rv u{text-decoration:none;background:linear-gradient(transparent 60%,#fff0a6 60%);padding:0 2px}
+.rv details{margin-top:8px;font-size:14.5px}
+.rv summary{cursor:pointer;color:var(--A)}
+.chips span{display:inline-block;margin:3px;padding:1px 13px;border-radius:999px;background:#e6f3ff;color:#1b66c9;font-size:14px}
+.empty{text-align:center;padding:36px 10px;font-size:18px}
+
+.unit-title.d{background:linear-gradient(120deg,#8b6cff,#ff7eb6)}
+.ed{color:#e0245e;font-weight:800}
+.lessonpill{display:inline-block;background:var(--gs);color:var(--g);border-radius:999px;padding:0 12px;font-size:13px;font-weight:700;margin-left:4px}
+.mcq{font-weight:600;margin-bottom:8px;line-height:1.7}
+.mcopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.mco{display:flex;align-items:center;border:2px solid #d8e8f8;border-radius:16px;padding:6px 12px;cursor:pointer;background:#fff;font-size:16px}
+.mco input{display:none}
+.mco b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--gs);color:var(--g);display:inline-flex;align-items:center;justify-content:center;margin-right:8px;font-size:13px}
+.mco.sel{border-color:var(--g);background:var(--gs)}
+.mco.right{background:var(--okS);border-color:var(--ok)}
+.mco.wrong{background:var(--badS);border-color:var(--bad)}
+.q li .mcval{display:none}
+.dlg{background:#f4f9ff;border-radius:18px;padding:12px 16px;margin:8px 0 14px;font-size:16px;line-height:1.9}
+.dlg b{color:var(--g)}
+.vocab{font-size:14px;color:var(--muted);margin-top:6px}
+.bank{display:flex;flex-wrap:wrap;gap:8px;background:#fff;border:2px dashed var(--gs);border-radius:18px;padding:10px 12px;margin:6px 0 14px}
+.bank span{background:var(--gs);border-radius:999px;padding:1px 14px;font-size:15.5px}
+.bank span b{color:var(--g);margin-right:4px}
+
+.src{float:right;font-size:11.5px;color:#8a97b2;background:#f1f5fb;border-radius:999px;padding:0 10px;margin:2px 0 0 8px;line-height:1.7}
+.stages .bb.shuf{background:#fff0f5;border-color:#ffc2d6;color:#c2185b;padding-left:14px}
+details.ctx{margin-top:6px;font-size:14.5px;font-weight:400}
+details.ctx summary{cursor:pointer;color:var(--g)}
+.q li .mcq input[type=text]{margin:0 4px}
+input.wr{display:block;width:100%;max-width:100%;margin:8px 0 0;text-align:left;padding:9px 14px;font-size:16px}
+.selfok{margin-top:6px;padding:4px 14px;font-size:13.5px}
+@media(max-width:560px){.mcopts{grid-template-columns:1fr}}
+@media(max-width:700px){.card{padding:18px 16px;border-radius:22px}.q li{font-size:16px;padding-left:46px}.hero{padding:18px}.hero-r{min-width:100%}}
+@media print{.sticky,.hero,.bar,.pn{display:none}body{background:#fff}.card{box-shadow:none}.page{display:block!important}#pg-wr{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div><h1>📘 <em>文法通</em> 第1課＋第3課</h1><p>第1課 過去簡單式：規則動詞　＋　第3課 連接詞 ＆ 授與動詞</p></div>
+  <div class="hero-r"><div class="prog"><i id="progBar"></i></div><span id="progTxt"></span><div id="scorebar"></div></div>
+</header>
+<div class="sticky"><nav id="topnav"></nav><div id="stages"></div></div>
+<main id="pages">
+<section class="page on" id="pg-sum">
+<div class="unit-title d">第1課　過去簡單式：規則動詞　Simple Past: Regular Verbs</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-1</span>規則動詞過去式的變化方式<span class="must">要考（期中）</span></h2>
+  <div class="tablewrap"><table>
+    <tr><th>動詞字尾</th><th>怎麼變</th><th>例字</th></tr>
+    <tr><td>一般字尾<span class="star">⭐</span></td><td>直接加 <span class="ed">-ed</span></td><td><span class="en">brush → brush<span class="ed">ed</span></span>　call → called　join → joined　listen → listened　open → opened　play → played　rain → rained　talk → talked　thank → thanked　visit → visited　walk → walked　watch → watched</td></tr>
+    <tr><td>字尾有 e<span class="star">⭐</span></td><td>只加 <span class="ed">-d</span></td><td><span class="en">arrive → arrive<span class="ed">d</span></span>　bake → baked　believe → believed　close → closed　dance → danced　live → lived　surprise → surprised　use → used</td></tr>
+    <tr><td>「子音 ＋ y」<span class="star">⭐</span></td><td>先去 y，再加 <span class="ed">-ied</span></td><td><span class="en">carry → carr<span class="ed">ied</span></span>　hurry → hurried　study → studied　try → tried　worry → worried<br><span class="pill">注意</span> 「母音 ＋ y」直接加 -ed：<span class="en">play → played</span>　<span class="en">stay → stayed</span></td></tr>
+    <tr><td>單音節、「短母音 ＋ 子音」<span class="star">⭐</span></td><td>先<b>重複字尾</b>，再加 <span class="ed">-ed</span></td><td><span class="en">beg → beg<span class="ed">ged</span></span>　drop → dropped　chat → chatted　clap → clapped　jog → jogged　plan → planned　stop → stopped　wrap → wrapped</td></tr>
+  </table></div>
+  <div class="tip">💡 判斷順序：<b>① 字尾有 e → 加 d　② 子音＋y → 去 y 加 ied　③ 單音節、短母音＋子音 → 重複字尾加 ed　④ 其他 → 直接加 ed</b>。<br>⚠️ visit、listen 有兩個音節，<b>不重複</b>字尾：visited、listened。</div>
+  <div class="tip">📌 不規則動詞要另外背（第1課測驗裡用到）：<span class="en">go → went</span>　<span class="en">have → had</span>　<span class="en">run → ran</span>　<span class="en">is → was</span>　<span class="en">hit → hit</span>　<span class="en">break → broke</span>　<span class="en">bite → bit</span>　<span class="en">take → took</span></div>
+</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-3</span>過去簡單式的用法 ＆ 過去的時間副詞<span class="must">要考</span></h2>
+  <p>過去簡單式（Simple Past）用來表達「<b>過去</b>」發生的<b>事實</b>、<b>狀態</b>或<b>動作</b>。</p>
+  <p><span class="cl">I / You / He / She / We / They</span><span class="cl vb">visited the zoo</span><span class="cl cj">yesterday.</span>　<span class="cl">I</span><span class="cl vb">used the computer</span><span class="cl cj">two days ago.</span></p>
+  <h3>常見的過去時間副詞</h3>
+  <div class="tablewrap"><table>
+    <tr><th>類型</th><th>例子</th></tr>
+    <tr><td><b>yesterday ～</b>（昨天～）</td><td><span class="en">yesterday morning / afternoon / evening</span>、<span class="en">the day before yesterday</span>（前天）</td></tr>
+    <tr><td><b>last ～</b>（上個～）</td><td><span class="en">last night</span>（昨晚）、<span class="en">last Friday</span>、<span class="en">last weekend</span>、<span class="en">last month</span>、<span class="en">last year</span>、<span class="en">last summer</span></td></tr>
+    <tr><td><b>～ ago</b>（～以前）</td><td><span class="en">an hour ago</span>、<span class="en">two days ago</span>、<span class="en">three months ago</span></td></tr>
+    <tr><td><b>this ～</b>（這個～）</td><td><span class="en">this morning</span>、<span class="en">this afternoon</span>、<span class="en">this evening</span>、<span class="en">this Sunday</span></td></tr>
+    <tr><td>其他</td><td><span class="en">before</span>（以前）、<span class="en">in the past</span>（在過去）</td></tr>
+  </table></div>
+  <ul>
+    <li>時間副詞<b>常放句尾</b>；強調時可放<b>句首</b>，後面通常加<b>逗點</b>。
+      <div class="ex"><span class="en">Mandy walked in the park last night.</span> ＝ <span class="en">Last night, Mandy walked in the park.</span><span class="zh">曼蒂昨晚在公園散步。</span></div></li>
+    <li><b>補充</b>：「this ＋ 時間」常用在過去式，但說話時還沒到那個時間，就可以表示未來：<span class="en">I'm going to New York this week.</span></li>
+  </ul>
+</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-4</span>過去簡單式的肯定句與否定句<span class="must">要考</span></h2>
+  <h3>肯定句</h3>
+  <p><span class="cl">主詞</span><span class="cl vb">過去式動詞</span><span class="cl cj">時間副詞</span>　<span class="en">I worked yesterday.</span>　<span class="en">He studied English a week ago.</span></p>
+  <h3>否定句（助動詞 did ＋ not ＋ 原形動詞）</h3>
+  <p><span class="cl">主詞</span><span class="cl pp">did not（= didn't）</span><span class="cl vb">原形動詞</span><span class="cl cj">時間副詞</span>　<span class="en">I did not work this morning.</span>　<span class="en">He didn't study English last Saturday.</span></p>
+  <ul>
+    <li>過去式的否定是 <b>didn't ＋ 原形動詞</b>。（老師筆記：助動詞 ＋ 原形 V；didn't ＝ 過去式）</li>
+    <li>否定助動詞<b>不論人稱、單複數</b>，一律用 <b>did not ＝ didn't</b>（didn't 是 don't / doesn't 的「過去式」）。</li>
+  </ul>
+  <div class="tip warn">⚠️ <b>didn't 後面動詞要還原</b>：<span class="no">✗ He didn't studied.</span>　<span class="yes">✓ He didn't study.</span></div>
+  <div class="ex"><span class="en">He didn't make the bed this morning.</span><span class="zh">他今天早上沒有鋪床。</span></div>
+  <div class="ex"><span class="en">They didn't ask any questions.</span><span class="zh">他們都沒有問問題。</span></div>
+</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-5</span>過去簡單式的 Yes / No 問句與答句<span class="must">要考</span></h2>
+  <p><span class="cl pp">Did</span><span class="cl">主詞（you / he / she…）</span><span class="cl vb">原形動詞</span><span class="cl cj">(時間副詞)?</span>　<span class="en">Did you enjoy the party (yesterday)?</span></p>
+  <div class="tablewrap"><table>
+    <tr><th>回答</th><th>簡答（主詞一定是人稱代名詞）</th><th>詳答（再補一句）</th></tr>
+    <tr><td>肯定</td><td><span class="en">Yes, I / we / he / she did.</span>　（主詞 ＋ did）</td><td><span class="en">Yes, I enjoyed the party.</span>（Yes 後接肯定句）</td></tr>
+    <tr><td>否定</td><td><span class="en">No, I / we / he / she didn't.</span>　（主詞 ＋ didn't）</td><td><span class="en">No, I didn't enjoy the party.</span>（No 後接否定句）</td></tr>
+  </table></div>
+  <ul>
+    <li>助動詞 <b>Did 放句首</b>，句中的過去式動詞要<b>恢復成原形</b>。（did 是 do / does 的過去式）</li>
+    <li>簡答句的主詞<b>必須是人稱代名詞</b>（I, we, he, she, they…），不能直接用人名。</li>
+  </ul>
+  <div class="ex"><span class="en">A: Did you like your first day at school?　B: Yes, I did.</span></div>
+  <div class="ex"><span class="en">A: Did you work all the time?　B: No, I didn't. I didn't work all the time.</span></div>
+  <div class="tip warn">⚠️ <span class="no">✗ Did he visited…?</span>　<span class="yes">✓ Did he visit…?</span>　　<span class="no">✗ No, Tom didn't.</span>（簡答）→ <span class="yes">✓ No, he didn't.</span></div>
+</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-6</span>過去簡單式的 Wh- 問句與答句<span class="must">要考</span></h2>
+  <p><span class="cl cj">Wh- 疑問詞</span><span class="cl pp">did</span><span class="cl">主詞</span><span class="cl vb">原形動詞</span><span class="cl">(時間副詞)?</span>　<span class="en">When did you go to school?</span></p>
+  <div class="tablewrap"><table>
+    <tr><th>疑問詞</th><th>問什麼</th><th>例句</th></tr>
+    <tr><td><b>When</b></td><td>時間</td><td><span class="en">When did Emma visit her grandparents?</span></td></tr>
+    <tr><td><b>Where</b></td><td>地點</td><td><span class="en">Where did the boys play basketball?</span></td></tr>
+    <tr><td><b>Why</b></td><td>理由</td><td><span class="en">Why did you go to school last night?</span></td></tr>
+    <tr><td><b>How</b></td><td>方法、狀態</td><td><span class="en">How did you like the class?</span></td></tr>
+    <tr><td><b>What</b></td><td>什麼</td><td><span class="en">What did you do last night?</span></td></tr>
+  </table></div>
+  <ul>
+    <li><b>did 之後的動詞一定是原形</b>（所有疑問句都一樣）。</li>
+    <li>Wh- 問句的語調是<b>下降</b> ↘。</li>
+  </ul>
+  <div class="tip">💡 <b>補充（第 1-7 頁）</b>：<b>Who / What 當主詞</b>時，<b>不加 did</b>，動詞直接用過去式：<span class="en">Who washed the dishes (yesterday)?</span>　<span class="en">What happened (yesterday)?</span></div>
+</div>
+
+<div class="card u5">
+  <h2><span class="badge">1-8</span>現在簡單式與過去簡單式的比較<span class="must">要考</span></h2>
+  <div class="tablewrap"><table>
+    <tr><th>時態</th><th>用法</th><th>時間副詞</th></tr>
+    <tr><td><b>現在簡單式</b><br>Simple Present</td><td>現在的<b>事實、狀態、習慣</b>與至今不變的真理</td><td><span class="en">today, now</span>、<span class="en">every ＋ 時間</span>（每一個……）、<span class="en">on ＋ 星期 s</span>（每星期……，例：on Sundays）</td></tr>
+    <tr><td><b>過去簡單式</b><br>Simple Past</td><td><b>過去的</b>事實、狀態、習慣</td><td><span class="en">yesterday</span>、<span class="en">before</span>、<span class="en">last ＋ 時間</span>、<span class="en">時間 ＋ ago</span></td></tr>
+  </table></div>
+  <div class="ex"><span class="en">I study English every day.</span><span class="zh">我每天都讀英文。（現在式，表習慣）</span></div>
+  <div class="ex"><span class="en">I studied English yesterday evening.</span><span class="zh">我昨天晚上讀英文。（過去式，表過去的活動）</span></div>
+  <div class="ex"><span class="en">She doesn't feel well now.</span><span class="zh">她現在不舒服。</span> → <span class="en">She didn't feel well this morning.</span></div>
+  <div class="tip">💡 <b>先看時間副詞</b>再決定時態：every / now / today / on Sundays → 現在式；yesterday / last ～ / ～ ago / this morning（已過去）→ 過去式。</div>
+</div>
+
+<div class="unit-title a">第3課　連接詞 ＆ 授與動詞　Conjunctions &amp; Dative Verbs</div>
+
+<div class="card u2">
+  <h2><span class="badge">0</span>先認識：主要子句、從屬子句、連接詞</h2>
+  <p>「子句」＝有主詞和動詞的一句話。這一課就是學怎麼用<b>連接詞</b>把兩個子句接起來。</p>
+  <div class="tablewrap"><table>
+    <tr><th>名稱</th><th>縮寫</th><th>特色</th></tr>
+    <tr><td>主要子句 Main Clause</td><td>MC</td><td>可以<b>單獨成為一句話</b></td></tr>
+    <tr><td>從屬子句 Subordinate Clause（附屬、次要）</td><td>SC</td><td><b>不可獨立存在</b>，一定要依附主要子句才完整</td></tr>
+  </table></div>
+  <p><span class="cl mc">We play basketball</span><span class="cl cj">when</span><span class="cl sc">we have free time.</span></p>
+  <div class="tip">💡 只有 <span class="en">when we have free time</span> 讀起來話沒說完，所以它是<b>從屬子句</b>；<span class="en">We play basketball</span> 自己就是完整的一句，所以是<b>主要子句</b>。</div>
+  <h3>兩種排法（逗號規則）</h3>
+  <div class="tablewrap"><table>
+    <tr><th>排法</th><th>逗號</th><th>例句</th></tr>
+    <tr><td>主要子句 ＋ 連接詞 ＋ 從屬子句</td><td>不加</td><td><span class="cl mc">We play basketball</span><span class="cl cj">when</span><span class="cl sc">we have free time.</span></td></tr>
+    <tr><td>連接詞 ＋ 從屬子句 <b>,</b> 主要子句</td><td><b>要加</b></td><td><span class="cl cj">When</span><span class="cl sc">we have free time,</span><span class="cl mc">we play basketball.</span></td></tr>
+  </table></div>
+  <div class="tip">💡 口訣：<b>從屬子句在前面 → 後面加逗號；在後面 → 不加逗號。</b>（老師筆記：「子句 when 子句」＝ 主要子句在前；「When 子句 , 子句」＝ 從屬子句在前）</div>
+  <h3>連接詞分兩類</h3>
+  <div class="tablewrap"><table>
+    <tr><th>類型</th><th>代表</th><th>特色</th></tr>
+    <tr><td>從屬連接詞</td><td>when, before, after, because（although / though）</td><td>引導「從屬子句」，這個子句可放<b>句首或句尾</b></td></tr>
+    <tr><td>對等連接詞</td><td>so（but, and, or）</td><td>連接兩個<b>對等</b>子句，放在<b>兩句中間</b>，so 前面加逗號</td></tr>
+  </table></div>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">3-1</span>從屬連接詞 when（當……的時候）<span class="must">要考</span></h2>
+  <ul>
+    <li><b>when 子句</b>是「<b>時間的副詞子句</b>」，用來修飾主要子句的動詞。</li>
+    <li>when 子句可放主要子句<b>之前或之後</b>；放<b>句首</b>時，兩個子句中間<b>必須加逗號</b>。</li>
+    <li>兩個子句中的名詞若相同，<b>先出現用名詞，後出現用代名詞</b>。
+      <div class="ex"><span class="en">When Sandy was ten, she dreamed of being a movie star.</span><span class="zh">在珊蒂十歲時，她夢想成為電影明星。（Sandy → she）</span></div></li>
+  </ul>
+  <h3>例句</h3>
+  <div class="ex"><span class="en">I studied English every day when I was a child.</span><span class="zh">我小時候每天都讀英文。</span></div>
+  <div class="ex"><span class="en">When I passed the kitchen, I heard some strange sound.</span><span class="zh">當我經過廚房時，我聽到奇怪的聲音。</span></div>
+  <div class="ex"><span class="en">Try this special drink when you visit the night market next time.</span><span class="zh">下次去夜市時，去喝喝這個特殊的飲料。（祈使句 ＋ when 子句）</span></div>
+  <div class="tip">💡 從練習題觀察：主要子句是<b>未來</b>（will / can）時，when 子句用<b>現在式</b>：<span class="en">I can phone you when I get back.</span>；說的是<b>過去</b>的事，兩個子句都用過去式：<span class="en">No one answered the door when I got back.</span></div>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">3-2</span>從屬連接詞 before / after<span class="must">要考</span></h2>
+  <p>before（在……之前）、after（在……之後）引導「時間的副詞子句」，表示<b>先後順序</b>。</p>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>先發生的動作</th><th>後發生的動作</th><th>例句</th></tr>
+    <tr><td><b>before</b></td><td>主要子句</td><td><b>before</b> 子句</td><td><span class="en">We brush our teeth before we go to bed.</span><br><span class="en">Before we go to bed, we brush our teeth.</span></td></tr>
+    <tr><td><b>after</b></td><td><b>after</b> 子句</td><td>主要子句</td><td><span class="en">We should wash our hands after we use the toilet.</span><br><span class="en">After we use the toilet, we should wash our hands.</span></td></tr>
+  </table></div>
+  <div class="tip">💡 判斷口訣：<b>跟在 before 後面的，是「後發生」的事；跟在 after 後面的，是「先發生」的事。</b></div>
+  <ul>
+    <li>放句首時，兩個子句中間<b>必須加逗號</b>（和 when 一樣）。</li>
+    <li><b>補充</b>：before / after 也可當<b>介系詞</b>，後面接<b>名詞</b>或<b>動名詞（V-ing）</b>說明時間：
+      <div class="ex"><span class="en">after work</span>（下班後，N）　<span class="en">after school</span>（放學後，N）　<span class="en">before going home</span>（回家之前，V-ing）</div></li>
+  </ul>
+  <h3>例句</h3>
+  <div class="ex"><span class="en">What do you do after work?</span><span class="zh">你下班後做什麼？</span></div>
+  <div class="ex"><span class="en">I do my homework before dinner.</span><span class="zh">我在晚餐前做功課。</span></div>
+  <div class="ex"><span class="en">Some animals seem to feel an earthquake before it hits.</span><span class="zh">有些動物在地震發生之前似乎就感應得到。</span></div>
+  <div class="ex"><span class="en">We do our homework after we come home from school.</span><span class="zh">從學校回家後，我們會做功課。</span></div>
+  <h3>when / before / after 怎麼選？</h3>
+  <div class="tablewrap"><table>
+    <tr><th>兩件事的關係</th><th>用</th></tr>
+    <tr><td>同一個時間點、同時發生</td><td><b>when</b></td></tr>
+    <tr><td>這件事比較晚，另一件事在它前面</td><td><b>before</b></td></tr>
+    <tr><td>這件事比較早，另一件事在它後面</td><td><b>after</b></td></tr>
+  </table></div>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">3-3</span>從屬連接詞 because（因為）</h2>
+  <ul>
+    <li>because 引導表<b>「原因」</b>的副詞子句；主要子句說明<b>「結果」</b>。</li>
+    <li>because 子句可放主要子句<b>後面</b>，也可放<b>前面</b>；放前面時要加<b>逗號</b>與主要子句隔開。</li>
+  </ul>
+  <p><span class="cl mc">Tom didn't go to school</span><span class="cl cj">because</span><span class="cl sc">he was sick.</span></p>
+  <p><span class="cl cj">Because</span><span class="cl sc">Tom was sick,</span><span class="cl mc">he didn't go to school.</span></p>
+  <div class="tip">💡 <b>補充 because / because of</b>：because 後面接<b>子句</b>（有主詞＋動詞）；because of 是<b>介系詞</b>，後面接<b>名詞</b>。<br>
+  <span class="en">We stayed home because it rained.</span>　<span class="en">We stayed home because of the rain.</span></div>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">3-4</span>because 和 so<span class="must">要考</span><span class="star">⭐ 重點</span></h2>
+  <ul>
+    <li><b>because</b> 是從屬連接詞，引導「原因」的從屬子句，並跟隨一個主要子句。</li>
+    <li><b>so</b> 是對等連接詞，連接兩個「對等子句」，說明<b>結果</b>。</li>
+  </ul>
+  <p><span class="cl cj">Because</span><span class="cl sc">she was sick,</span><span class="cl mc">her mom took her to the hospital.</span></p>
+  <p><span class="cl mc">She was sick,</span><span class="cl cj">so</span><span class="cl mc">her mom took her to the hospital.</span></p>
+  <div class="tip warn">⭐ <b>because 與 so 不可「同時」用</b>，一次只能用一個。
+    <div class="ex"><span class="en">Because he missed the bus, he was late for school.</span> <span class="yes">○</span></div>
+    <div class="ex"><span class="en">He missed the bus, so he was late for school.</span> <span class="yes">○</span></div>
+    <div class="ex"><span class="en">Because he missed the bus, so he was late for school.</span> <span class="no">✗</span></div></div>
+  <div class="tip warn">⭐ <b>so 放在句中，不可置於句首</b>，前後兩個句子用<b>逗號</b>隔開。<span class="no">✗ So it rained, we stayed home.</span>　<span class="yes">✓ It rained, so we stayed home.</span></div>
+  <h3>例句</h3>
+  <div class="ex"><span class="en">He wasn't careful enough, so he tripped and fell.</span><span class="zh">他不夠小心，所以他絆倒了。</span></div>
+  <div class="ex"><span class="en">It rained, so we stayed at home.</span><span class="zh">因為下雨，所以我們待在家。</span></div>
+  <div class="tip">💡 一起比較：<b>because ＝ 原因的那一句前面</b>；<b>so ＝ 結果的那一句前面</b>。</div>
+</div>
+
+<div class="unit-title b">授與動詞 Dative Verbs</div>
+
+<div class="card u3">
+  <h2><span class="badge">3-8</span>授與動詞的用法<span class="must">要考</span><span class="star">⭐ A++ 奪標要點</span></h2>
+  <p>授與動詞（雙賓動詞）像 <b>give</b>（給），要表達「<b>給某人某物</b>」。後面接<b>兩個受詞</b>，讓話意更完整：</p>
+  <ul>
+    <li><b>間接受詞 I.O.</b>：通常是<b>人</b>（接受的人）</li>
+    <li><b>直接受詞 D.O.</b>：通常是<b>物</b>（被給予的物）</li>
+  </ul>
+  <h3>句型 1：不需要介系詞（後接 人 ＋ 物）<span class="star">⭐</span></h3>
+  <p><span class="cl">Alan</span><span class="cl vb">gave</span><span class="cl io">me</span><span class="cl do">a book.</span>　<span class="cl">Dennis</span><span class="cl vb">bought</span><span class="cl io">Sandy</span><span class="cl do">flowers.</span></p>
+  <p>公式：主詞 ＋ 授與動詞 ＋ <span class="cl io">I.O.（人）</span> ＋ <span class="cl do">D.O.（物）</span></p>
+  <h3>句型 2：需要介系詞（物 ＋ 介系詞 ＋ 人）<span class="star">⭐</span></h3>
+  <p><span class="cl">Alan</span><span class="cl vb">gave</span><span class="cl do">a book</span><span class="cl pp">to</span><span class="cl io">me.</span>　<span class="cl">Dennis</span><span class="cl vb">bought</span><span class="cl do">flowers</span><span class="cl pp">for</span><span class="cl io">Sandy.</span></p>
+  <p>公式：主詞 ＋ 授與動詞 ＋ <span class="cl do">D.O.（物）</span> ＋ <span class="cl pp">介系詞</span> ＋ <span class="cl io">I.O.（人）</span></p>
+  <div class="tip">💡 兩個句型「人」和「物」<b>位置對調</b>：句型 1 人在前、物在後；句型 2 物在前、人在後，中間加介系詞。</div>
+  <h3>to 還是 for？<span class="star">⭐</span></h3>
+  <ul>
+    <li>和 <b>to</b> 連用：bring、give、send、show、teach、tell、write、read、sell…</li>
+    <li>和 <b>for</b> 連用：bring、buy、get、make…</li>
+  </ul>
+  <div class="tablewrap"><table>
+    <tr><th>現在式</th><th>過去式</th><th>搭配介系詞</th><th>中文</th></tr>
+    <tr><td>give</td><td>gave</td><td>to</td><td>給</td></tr>
+    <tr><td>write</td><td>wrote</td><td>to</td><td>寫</td></tr>
+    <tr><td>read</td><td>read /rɛd/</td><td>to</td><td>讀</td></tr>
+    <tr><td>teach</td><td>taught</td><td>to</td><td>教學</td></tr>
+    <tr><td>show</td><td>showed</td><td>to</td><td>展示；拿……看</td></tr>
+    <tr><td>send</td><td>sent</td><td>to</td><td>寄送</td></tr>
+    <tr><td>tell</td><td>told</td><td>to</td><td>告訴</td></tr>
+    <tr><td>bring △</td><td>brought</td><td><b>to / for</b></td><td>帶；帶來</td></tr>
+    <tr><td>buy ⭐</td><td>bought</td><td><b>for</b></td><td>買</td></tr>
+    <tr><td>sell</td><td>sold</td><td>to</td><td>賣</td></tr>
+    <tr><td>get ⭐</td><td>got</td><td><b>for</b></td><td>拿到；買</td></tr>
+    <tr><td>make ⭐</td><td>made</td><td><b>for</b></td><td>製作</td></tr>
+  </table></div>
+  <div class="tip">💡 記憶口訣（幫助記憶用）：<b>for 只有「買、拿、做」</b>（buy / get / make，為了對方去準備東西），bring 兩個都可以；其他都用 <b>to</b>。</div>
+  <h3>例句</h3>
+  <div class="ex"><span class="en">I gave Mary a gift. ＝ I gave a gift to Mary.</span><span class="zh">我給了瑪麗一個禮物。</span></div>
+  <div class="ex"><span class="en">My dad bought me the robot. ＝ My dad bought the robot for me.</span><span class="zh">爸爸買給我這個機器人。</span></div>
+  <div class="ex"><span class="en">Tim sent it to me from the USA.</span><span class="zh">提姆從美國寄這個東西給我。</span></div>
+  <div class="tip warn">⭐ <b>補充：直接受詞也是代名詞時</b>，通常用<b>有介系詞的句型</b>，避免「give ＋ 人（代名詞）＋ 物（代名詞）」：<br>
+    <span class="yes">✓ She sent it to him.</span>（兩個都是代名詞，用介系詞句型）　<span class="no">✗ She sent him it.</span>（避免）</div>
+</div>
+
+<div class="card u4">
+  <h2><span class="badge">＋</span>測驗裡還會出現的連接詞<span class="star">從試題歸納</span></h2>
+  <p>你上傳的頁面沒有 3-5～3-7（第 29、31～34 頁），但 Mini-Tests 裡出現了這些字。下面是我依試題整理的基本用法，課本上的說法請以老師講義為準。</p>
+  <div class="tablewrap"><table>
+    <tr><th>字</th><th>意思</th><th>用法</th><th>例句</th></tr>
+    <tr><td><b>although / though</b></td><td>雖然</td><td>從屬連接詞，後接子句；<b>不和 but 同時用</b></td><td><span class="en">Although the car is old, it still runs well.</span></td></tr>
+    <tr><td><b>but</b></td><td>但是</td><td>對等連接詞，語意轉折，放兩句中間</td><td><span class="en">George was a teacher, but now he is a singer.</span></td></tr>
+    <tr><td><b>and</b></td><td>和、而且</td><td>對等連接詞，並列相加</td><td><span class="en">I like apples and bananas.</span></td></tr>
+    <tr><td><b>or</b></td><td>或者</td><td>對等連接詞，二選一</td><td><span class="en">Do you want tea or coffee?</span></td></tr>
+    <tr><td><b>ago</b></td><td>……以前</td><td>放在時間後面，用於過去式</td><td><span class="en">Jay waved ten minutes ago.</span></td></tr>
+    <tr><td><b>Why / Because</b></td><td>為什麼 / 因為</td><td>Why 問原因，回答用 Because 開頭</td><td><span class="en">Why are you late? Because I overslept.</span></td></tr>
+  </table></div>
+  <div class="tip warn">⚠️ <span class="no">✗ Although he is tired, but he works.</span>　<span class="yes">✓ Although he is tired, he works. / He is tired, but he works.</span>（although 和 but 只能用一個）</div>
+</div>
+
+<div class="card u4">
+  <h2>🧭 解題三步驟（連接詞）</h2>
+  <div class="flow">
+    <div><b>① 看語意</b>同時？先後？原因？結果？轉折？</div><i>→</i>
+    <div><b>② 選連接詞</b>見下表</div><i>→</i>
+    <div><b>③ 檢查</b>位置、逗號、有沒有「兩個連接詞」疊在一起</div>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>語意</th><th>連接詞</th></tr>
+    <tr><td>同時、當……的時候</td><td>when</td></tr>
+    <tr><td>在……之前（後發生的動作接 before）</td><td>before</td></tr>
+    <tr><td>在……之後（先發生的動作接 after）</td><td>after</td></tr>
+    <tr><td>原因</td><td>because</td></tr>
+    <tr><td>結果</td><td>so</td></tr>
+    <tr><td>雖然（轉折）</td><td>although / though，或 but</td></tr>
+  </table></div>
+  <h3>🚨 常見地雷</h3>
+  <ul>
+    <li><span class="no">✗ Because …, so …</span> → 只能用一個</li>
+    <li><span class="no">✗ So it rained, we stayed home.</span> → so 不能放句首</li>
+    <li><span class="no">✗ When I got home my mom was cooking.</span> → when 子句在句首，漏了逗號</li>
+    <li><span class="no">✗ We stayed home because of it rained.</span> → because of ＋ 名詞；because ＋ 子句</li>
+    <li><span class="no">✗ He gave me it.</span> → 兩個都是代名詞，用 <span class="yes">He gave it to me.</span></li>
+    <li><span class="no">✗ Dad bought a cake to me.</span> → buy 搭配 for：<span class="yes">Dad bought a cake for me.</span></li>
+  </ul>
+</div>
+
+
+<div class="unit-title c">✍️ 句子改寫小抄（Section D 用）</div>
+<div class="card u5">
+  <h2>第1課：一個句子的「變身表」</h2>
+  <div class="tablewrap"><table>
+    <tr><th>要變成</th><th>怎麼改</th><th>例子（原句：<span class="en">Tom watched TV last night.</span>）</th></tr>
+    <tr><td>否定句</td><td>didn't ＋ 原形動詞</td><td><span class="en">Tom didn't watch TV last night.</span></td></tr>
+    <tr><td>Yes/No 問句</td><td>Did 放句首 ＋ 原形動詞</td><td><span class="en">Did Tom watch TV last night?</span></td></tr>
+    <tr><td>肯定簡答＋詳答</td><td>Yes, 人稱代名詞 did. ＋ 肯定句</td><td><span class="en">Yes, he did. He watched TV last night.</span></td></tr>
+    <tr><td>否定簡答＋詳答</td><td>No, 人稱代名詞 didn't. ＋ 否定句</td><td><span class="en">No, he didn't. He didn't watch TV last night.</span></td></tr>
+    <tr><td>依畫線問 When</td><td>When did ＋ 主詞 ＋ 原形動詞？</td><td><span class="en">When did Tom watch TV?</span>（畫線 last night）</td></tr>
+    <tr><td>依畫線問 Where / Why / How</td><td>疑問詞 did ＋ 主詞 ＋ 原形動詞？</td><td>Where（地點）、Why（原因）、How（方法／狀態）</td></tr>
+    <tr><td>現在式 ⇄ 過去式</td><td>動詞變形 ＋ 換時間副詞</td><td><span class="en">Tom watches TV every night.</span> ⇄ <span class="en">Tom watched TV last night.</span></td></tr>
+  </table></div>
+  <h3>第3課：改寫與合併</h3>
+  <div class="tablewrap"><table>
+    <tr><th>要做什麼</th><th>怎麼改</th><th>例子</th></tr>
+    <tr><td>授與動詞句型 1 ⇄ 2</td><td>人與物對調，加／去介系詞（to / for）</td><td><span class="en">Mom bought me a bag.</span> ⇄ <span class="en">Mom bought a bag for me.</span></td></tr>
+    <tr><td>兩個都是代名詞</td><td>用介系詞句型</td><td><span class="en">gave it to him</span>（✗ gave him it）</td></tr>
+    <tr><td>because ⇄ so</td><td>原因用 because，結果用 so（只能用一個）</td><td><span class="en">Because it rained, we stayed home.</span> ⇄ <span class="en">It rained, so we stayed home.</span></td></tr>
+    <tr><td>子句換位置</td><td>在句首要加逗號，在句尾不加</td><td><span class="en">When I got home, Mom was cooking.</span> ⇄ <span class="en">Mom was cooking when I got home.</span></td></tr>
+    <tr><td>合併兩句</td><td>找出先後／原因／結果／轉折，選連接詞；第二次出現的人名改代名詞</td><td><span class="en">Ben was ten. He learned to swim.</span> → <span class="en">When Ben was ten, he learned to swim.</span></td></tr>
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>📝 測驗題型（仿學校期末考）</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Section</th><th>題型</th><th>怎麼作答</th></tr>
+    <tr><td><b>A</b> Multiple Choice</td><td>選擇題（含兩個空格的組合選項、對話題）</td><td>點選 A～D</td></tr>
+    <tr><td><b>B</b> Word Bank</td><td>從字庫選出最適合的字或片語填空，每個只用一次</td><td>下拉選字母</td></tr>
+    <tr><td><b>C</b> Reading</td><td>閱讀短文後回答問題</td><td>點選 A～D</td></tr>
+    <tr><td><b>MiniTest</b></td><td>依附件的練習題與 Mini-Tests（第1課＋第3課），整篇克漏字視為一大題</td><td>點選＋鍵盤輸入</td></tr>
+    <tr><td><b>裕德考題</b></td><td>學校考卷原題（選擇、填空、克漏字、翻譯）隨機混合，獨立成一個區</td><td>點選＋鍵盤輸入（翻譯要打完整句子）</td></tr>
+    <tr><td><b>D</b> Completion Sentence</td><td>句子改寫：疑問句、否定句、簡答＋詳答、依畫線問句、合併句子、重組句子</td><td><b>用鍵盤打出完整句子</b>（didn't／did not 都可以）</td></tr>
+  </table></div>
+  <p>每回做完按「核對」看解析；答錯的題會自動進「錯題本」，可以重做。第 1 課與第 3 課的題目各有標示。</p>
+</div>
+
+<div class="card u6">
+  <h2><span class="badge">E</span>🏫 裕德考題（獨立回合）<span class="star">49 格</span></h2>
+  <p>把你提供的兩份學校考卷<b>逐題收進來</b>，並<b>隨機打散、混在一起</b>，分成 5 回（每回 10 個題目；整段克漏字算 1 大題）：</p>
+  <div class="tablewrap"><table>
+    <tr><th>來源</th><th>收錄內容</th><th>題數</th></tr>
+    <tr><td>Unit 1 考卷</td><td>一、單一選擇題 10 題；二-1 寫出動詞過去式 10 題；二-2 肯定或否定動詞 5 題；三、翻譯 2 題</td><td>27 格</td></tr>
+    <tr><td>Mock Exam</td><td>一、單一選擇題 10 題；二、動詞時態 5 題；三、克漏字 <b>1 大題（5 格，整段對話一起作答）</b>；四、翻譯 2 題</td><td>22 格</td></tr>
+  </table></div>
+  <ul>
+    <li>每題右上角的小標籤是<b>原卷題號</b>，方便對照。</li>
+    <li>按「<b>🔀 重新洗牌</b>」可以重新隨機分回（會清除這幾回目前的作答，錯題本不受影響）。</li>
+    <li>填空題和<b>翻譯題都用鍵盤輸入</b>（翻譯題請打出完整的英文句子）；<b>克漏字是整段對話，視為一大題</b>，5 個空格一起作答。</li>
+  </ul>
+  <div class="tip">ℹ️ 考卷上標示學校保留所有著作權，請只作個人練習使用，不要轉傳或公開。</div>
+</div>
+
+<div class="card u7">
+  <h2><span class="badge">🎯</span>MiniTest（依附件整理）<span class="star">107 題・117 格</span></h2>
+  <p>把你傳的第1課、第3課的<b>練習題與 Mini-Tests</b> 全部收進來，分成 <b>10 回</b>（依課本順序）；可以按「🔀 隨機打散」改成隨機混合 11 回，再按「↩ 依課本順序」回來。</p>
+  <div class="tablewrap"><table>
+    <tr><th>課別</th><th>收錄內容</th><th>格數</th></tr>
+    <tr><td>第1課</td><td>練習：過去式 10、肯定否定 8、完成句子 10、Wh- 問句 8、時態 10；Mini-Tests 選擇題 15；A++ 選擇題 5、克漏字 1 大題（4 格）、翻譯 5</td><td>75</td></tr>
+    <tr><td>第3課</td><td>Mini-Tests 選擇題 20；A++ 選擇題 8、克漏字 2 大題（Diary 4 格、Alice 5 格）、翻譯 5</td><td>42</td></tr>
+  </table></div>
+  <ul>
+    <li><b>整篇克漏字視為一大題</b>（共 3 篇），不拆開；Diary 第 3 題要同時選兩個空格的字（例：made; for）。</li>
+    <li>填空與翻譯用<b>鍵盤輸入</b>；每題右上角的小標籤是原書位置。</li>
+  </ul>
+</div>
+</section>
+<section class="page" id="pg-wr"></section>
 </main></div><script>
 const OPT={'@L10':['A','B','C','D','E','F','G','H','I','J'],'@L9':['A','B','C','D','E','F','G','H','I']};
 
@@ -395,4 +946,282 @@ function miniParts(random){
   }
   return out;
 }
+const GROUPS=[
+ {k:'A',name:'A 選擇題',en:'Multiple Choice',c:'u2',e:'📝'},
+ {k:'B',name:'B 字庫填空',en:'Word Bank',c:'u3',e:'🧩'},
+ {k:'C',name:'C 閱讀',en:'Reading',c:'u4',e:'📖'},
+ {k:'D',name:'D 句子改寫',en:'Completion',c:'u5',e:'✍️'},
+ {k:'E',name:'裕德考題',en:'Yuteh Exam',c:'u6',e:'🏫'},
+ {k:'F',name:'MiniTest',en:'Mini-Tests',c:'u7',e:'🎯'}];
+let miniRandom=false;
+const L4=['A','B','C','D'];
+const RE=/\{([^{}]*?)::([^{}]*?)(?:::([^{}]*?))?\}/g;
+const $=(s,r=document)=>r.querySelector(s);
+const apos=s=>String(s).replace(/[’‘]/g,"'");
+const norm=s=>apos(s).trim().toLowerCase().replace(/\s+/g,' ');
+const CONTR=[[/\bdidn't\b/g,'did not'],[/\bdoesn't\b/g,'does not'],[/\bdon't\b/g,'do not'],[/\bwasn't\b/g,'was not'],[/\bweren't\b/g,'were not'],[/\bisn't\b/g,'is not'],[/\baren't\b/g,'are not'],[/\bcan't\b/g,'can not'],[/\bcannot\b/g,'can not']];
+const nz=s=>{let t=apos(s).toLowerCase();CONTR.forEach(x=>{t=t.replace(x[0],x[1]);});return t.replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();};
+const STORE='wft13wrong';
+const state={};
+let wrong={};
+try{wrong=JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){wrong={};}
+const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(wrong));}catch(e){}};
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const key=(p,i)=>p.blanks[i].uid;
+
+function sentenceAt(s,off){
+  let st=0;const re=/[.?!]\s/g;let m;
+  while((m=re.exec(s))&&m.index<off){st=m.index+2;}
+  const rest=s.slice(off);const m2=rest.match(/[.?!](\s|$)/);
+  const en=m2?off+m2.index+1:s.length;
+  return s.slice(st,en);
+}
+function ctl(b,attr){
+  const opts=b.opts;
+  if(opts)return `<select ${attr}><option value="">▾</option>${opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+  return `<input type="text" size="8" ${attr} autocomplete="off" spellcheck="false">`;
+}
+
+function buildPart(p){
+  p.blanks=[];
+  const grp=GROUPS.find(g=>g.k===p.unit);
+  const card=document.createElement('div');card.className='card q '+grp.c;card.id='part-'+p.id;
+  let h=`<div class="qhead"><span class="badge">${p.no}</span><h2>${p.title}</h2><span class="lessonpill">${p.lesson||''}</span></div><div class="ins">🎯 ${p.ins||''}</div>${p.pre||''}`;
+  if(p.kind==='order'){
+    h+='<ol>';
+    p.lines.forEach((line,li)=>{
+      const f=line.split('|||');
+      const ans=f[1].split('/');
+      const extra=(f[3]||'').trim();
+      const toks=shuffle(ans[0].split(' ').concat(extra?extra.split(' '):[]));
+      const b={order:true,ans,exp:f[2]||'',topic:f[4]||p.topic,q:f[0],line:li,n:li+1};
+      p.blanks.push(b);const i=p.blanks.length-1;
+      h+=`<li><div class="zhq">${f[0]}</div><div class="ordans"></div><div class="ordbank">${toks.map((t,k)=>`<button type="button" class="tok" data-k="${k}">${t}</button>`).join('')}</div><input type="text" class="ordval" data-i="${i}" hidden><div class="exs" data-l="${li}"></div></li>`;
+    });
+    h+='</ol>';
+  }else if(p.kind==='mc'){
+    h+='<ol>';
+    p.lines.forEach((line,li)=>{
+      const f=line.split('|||');
+      const opts=f.slice(1,5);
+      const b={mc:true,ans:[f[5]],exp:f[6]||'',topic:f[7]||p.topic,stem:f[0],opts,line:li,n:li+1};
+      p.blanks.push(b);const i=p.blanks.length-1;
+      h+=`<li><div class="mcq">${f[0]}</div><div class="mcopts">${opts.map((o,k)=>`<label class="mco" data-k="${L4[k]}"><input type="radio" name="r-${p.id}-${i}" value="${L4[k]}"><span><b>${L4[k]}</b>${o}</span></label>`).join('')}</div><input type="text" class="mcval" data-i="${i}" hidden><div class="exs" data-l="${li}"></div></li>`;
+    });
+    h+='</ol>';
+  }else if(p.kind==='mixed'){
+    h+='<ol>';
+    p.items.forEach((it,li)=>{
+      const src=it.src?`<span class="src">${it.src}</span>`:'';
+      if(it.t==='mc'){
+        const b={mc:true,uid:it.uid,ans:[it.ans],exp:it.exp,topic:it.topic,stem:it.stem,opts:it.opts,src:it.src,line:li};
+        p.blanks.push(b);const i=p.blanks.length-1;
+        h+=`<li>${src}<div class="mcq">${it.stem}</div><div class="mcopts">${it.opts.map((o,k)=>`<label class="mco" data-k="${L4[k]}"><input type="radio" name="r-${p.id}-${i}" value="${L4[k]}"><span><b>${L4[k]}</b>${o}</span></label>`).join('')}</div><input type="text" class="mcval" data-i="${i}" hidden><div class="exs" data-l="${li}"></div></li>`;
+      }else if(it.t==='fill'){
+        const b={fill:true,uid:it.uid,ans:it.ans,exp:it.exp,topic:it.topic,stem:it.stem,src:it.src,line:li};
+        p.blanks.push(b);const i=p.blanks.length-1;
+        h+=`<li>${src}<div class="mcq">${it.stem.replace('{}',`<input type="text" size="${Math.max(8,Math.max(...it.ans.map(a=>a.length))+3)}" data-i="${i}" autocomplete="off" autocapitalize="none" spellcheck="false">`)}</div><div class="exs" data-l="${li}"></div></li>`;
+      }else if(it.t==='passage'){
+        let html=it.html;
+        it.subs.forEach(sb=>{
+          const b={cloze:true,uid:sb.uid,ans:[sb.ans],opts:sb.opts,exp:sb.exp,topic:sb.topic,src:it.src,stem:sb.stem,num:sb.num,line:li};
+          p.blanks.push(b);const i=p.blanks.length-1;
+          html=html.replace('{'+sb.num+'}','<span class="num">'+sb.num+'</span>'+ctl(b,`data-i="${i}"`));
+        });
+        html=html.replace(/\{(\d+)b\}/g,'<span class="num">$1</span>______');
+        h+=`<li>${src}<div class="mcq">${it.intro||'克漏字測驗：閱讀下面的對話，選出 (16)–(20) 的答案。（整段視為一大題）'}</div><div class="dlg">${html}</div><div class="exs" data-l="${li}"></div></li>`;
+      }else{
+        const b={write:true,uid:it.uid,ans:it.ans,exp:it.exp,topic:it.topic,q:it.q,src:it.src,line:li};
+        p.blanks.push(b);const i=p.blanks.length-1;
+        h+=`<li>${src}<div class="zhq">${it.q}</div><input type="text" class="wr" data-i="${i}" placeholder="請在這裡打出完整的英文句子" autocomplete="off" autocapitalize="sentences" spellcheck="false"><div class="exs" data-l="${li}"></div></li>`;
+      }
+    });
+    h+='</ol>';
+  }else{
+    let n=0;
+    const conv=(line,li)=>line.replace(RE,(m,l,r,e,off,str)=>{
+      const opts=OPT[l]?OPT[l].slice():null;
+      const b={ans:r.split('/'),exp:e||'',opts,topic:p.topic,ctx:sentenceAt(str,off),raw:m,line:li,n:++n};
+      p.blanks.push(b);
+      return ctl(b,`data-i="${p.blanks.length-1}"`);
+    });
+    h+='<ol>'+p.lines.map((l,li)=>`<li>${conv(l,li)}<div class="exs" data-l="${li}"></div></li>`).join('')+'</ol>';
+  }
+  if(p.kind!=='mixed')p.blanks.forEach((b,i)=>{b.uid=p.id+'#'+i;});
+  const idx=parts.indexOf(p);
+  const prev=idx>0?parts[idx-1].id:'sum';
+  const next=idx<parts.length-1?parts[idx+1].id:'wr';
+  h+=`<div class="bar"><button class="btn" data-act="check" data-p="${p.id}">✔ 核對這 ${p.blanks.length} 題</button><button class="btn ghost" data-act="reset" data-p="${p.id}">↺ 重做</button>${p.unit==='E'?'<button class="btn ghost" data-act="reshuffle">🔀 重新洗牌</button>':''}${p.unit==='F'?(miniRandom?'<button class="btn ghost" data-act="minimode" data-rnd="1">🔀 再打散一次</button><button class="btn ghost" data-act="minimode" data-rnd="0">↩ 依課本順序</button>':'<button class="btn ghost" data-act="minimode" data-rnd="1">🔀 隨機打散</button>'):''}<span class="res" id="res-${p.id}"></span></div>`;
+  h+=`<div class="pn"><button class="btn ghost" data-go="${prev}">← 上一回</button><button class="btn ghost" data-go="${next}">${idx<parts.length-1?'下一回 →':'去看錯題本 →'}</button></div>`;
+  card.innerHTML=h;
+  const sec=document.createElement('section');sec.className='page';sec.id='pg-'+p.id;sec.appendChild(card);return sec;
+}
+
+const valOf=el=>el.value;
+const judge=(b,v)=>b.ans.some(a=>nz(a)===nz(v));
+const optTxt=(b,l)=>l?`${l}　${b.opts[L4.indexOf(l)]}`:'（沒作答）';
+function ansTxt(b){return b.mc?optTxt(b,b.ans[0]):(b.order||b.write)?b.ans.join('　／　'):b.ans.join(' / ');}
+function yoursTxt(b,v){return b.mc?optTxt(b,v):(v||'（沒作答）');}
+
+function checkPart(p){
+  const root=document.getElementById('part-'+p.id);
+  root.querySelectorAll('.exs').forEach(x=>x.innerHTML='');
+  let sc=0;
+  p.blanks.forEach((b,i)=>{
+    const el=root.querySelector(`[data-i="${i}"]`);
+    const v=valOf(el);const ok=judge(b,v);
+    el.disabled=true;
+    if(b.order){const li=el.closest('li');const vis=li.querySelector('.ordans');vis.classList.remove('ok','bad');vis.classList.add(ok?'ok':'bad');li.querySelectorAll('.tok').forEach(t=>t.disabled=true);}
+    else if(b.mc){const li=el.closest('li');li.querySelectorAll('.mco').forEach(l=>{const k=l.dataset.k;l.classList.toggle('right',k===b.ans[0]);l.classList.toggle('wrong',k===v&&k!==b.ans[0]);l.querySelector('input').disabled=true;});}
+    else{el.classList.remove('ok','bad');el.classList.add(ok?'ok':'bad');}
+    if(ok){sc++;delete wrong[key(p,i)];}else wrong[key(p,i)]=yoursTxt(b,v);
+    const box=root.querySelector(`.exs[data-l="${b.line}"]`);
+    const d=document.createElement('div');d.className='xp '+(ok?'okx':'badx');
+    d.innerHTML=(ok?'✅ ':'❌ ')+(b.num?`<b>(${b.num})</b> `:'')+(ok?`<b>${ansTxt(b)}</b>`:`你的答案：<b>${yoursTxt(b,v)}</b>　正確：<b>${ansTxt(b)}</b>`)+(b.exp?`<div class="why">📖 ${b.exp}</div>`:'');
+    if(!ok&&b.write&&v.trim())d.innerHTML+=`<div class="why">✍️ 這類題目可以有不同寫法，請對照參考答案；如果你的句子意思和文法都正確，可以自評。</div><button class="btn ghost selfok" data-act="selfok" data-p="${p.id}" data-i="${i}">我的寫法也對，算我對 ✔</button>`;
+    box.appendChild(d);
+  });
+  const tot=p.blanks.length;state[p.id]={sc,tot};
+  showRes(p);
+  root.querySelector('[data-act="check"]').disabled=true;
+  save();tally();
+}
+function showRes(p){const {sc,tot}=state[p.id];$('#res-'+p.id).textContent=`得分 ${sc} / ${tot}　`+(sc===tot?'🎉 全對！':sc>=tot*0.8?'👍 很棒，看看錯的解析':'💪 看解析後可以按「重做」');}
+function resetPart(p){
+  const root=document.getElementById('part-'+p.id);
+  root.querySelectorAll('[data-i]').forEach(el=>{el.classList.remove('ok','bad');el.disabled=false;el.value='';});
+  root.querySelectorAll('.mco').forEach(l=>{l.classList.remove('right','wrong','sel');const r=l.querySelector('input');r.disabled=false;r.checked=false;});
+  root.querySelectorAll('li').forEach(li=>{
+    const ans=li.querySelector('.ordans');if(!ans)return;
+    const bank=li.querySelector('.ordbank');
+    [...ans.children].forEach(c=>bank.appendChild(c));
+    [...bank.children].sort((a,b)=>a.dataset.k-b.dataset.k).forEach(c=>{c.disabled=false;bank.appendChild(c);});
+    ans.classList.remove('ok','bad');
+  });
+  root.querySelectorAll('.exs').forEach(x=>x.innerHTML='');
+  $('#res-'+p.id).textContent='';
+  root.querySelector('[data-act="check"]').disabled=false;
+  delete state[p.id];tally();
+}
+function moveTok(t){
+  const li=t.closest('li');const ans=li.querySelector('.ordans'),bank=li.querySelector('.ordbank');
+  if(t.parentElement===bank)ans.appendChild(t);
+  else{const k=+t.dataset.k;const next=[...bank.children].find(c=>+c.dataset.k>k);bank.insertBefore(t,next||null);}
+  li.querySelector('.ordval').value=[...ans.children].map(c=>c.textContent).join(' ');
+}
+
+function findKey(k){for(const p of parts){const i=p.blanks.findIndex(b=>b.uid===k);if(i>=0)return{p,b:p.blanks[i],i};}return null;}
+function validKeys(){return Object.keys(wrong).filter(k=>findKey(k));}
+
+function tally(){
+  const chips=GROUPS.map(g=>{const ps=parts.filter(p=>p.unit===g.k);let sc=0,tt=0,d=0;ps.forEach(p=>{const s=state[p.id];if(s){sc+=s.sc;tt+=s.tot;d++;}});
+    return `<span class="chip">${g.e} ${g.name.split(' ')[0]} <b>${d}/${ps.length}</b> 回${tt?` ・ <b>${sc}/${tt}</b> 分`:''}</span>`;}).join('');
+  $('#scorebar').innerHTML=chips;
+  const n=validKeys().length;
+  $('#wrongBadge').textContent=n;$('#wrongBadge').style.display=n?'inline-block':'none';
+  let done=0;
+  parts.forEach(p=>{const s=state[p.id];const el=$('#bb-'+p.id);if(!el)return;
+    el.classList.toggle('done',!!s);el.classList.toggle('perfect',!!s&&s.sc===s.tot);if(s)done++;});
+  $('#progBar').style.width=(done/parts.length*100)+'%';
+  $('#progTxt').textContent=`完成 ${done} / ${parts.length} 回`;
+}
+
+function ctxHtml(b){
+  if(b.order||b.write)return `<div class="zhq">${b.q}</div><input type="text" size="46" data-rk autocomplete="off" spellcheck="false" placeholder="寫出完整句子">`;
+  if(b.cloze)return `<div class="mcq">${b.stem.replace('{}',ctl(b,'data-rk'))}</div>`;
+  if(b.fill)return `<div class="mcq">${b.stem.replace('{}','<input type="text" size="14" data-rk autocomplete="off" spellcheck="false">')}</div>`;
+  if(b.mc)return `<div class="mcq">${b.stem}</div><div class="ab">${b.opts.map((o,k)=>`<b>${L4[k]}</b> ${o}`).join('　　')}</div>答案：<select data-rk><option value="">▾</option>${L4.map(x=>`<option value="${x}">${x}</option>`).join('')}</select>`;
+  let done=false;
+  return b.ctx.replace(RE,(m,l,r)=>{
+    if(!done&&m===b.raw){done=true;return ctl(b,'data-rk');}
+    return `<u>${r.split('/')[0]}</u>`;
+  });
+}
+function renderWrong(){
+  const box=$('#pg-wr');const keys=validKeys();
+  if(!keys.length){box.innerHTML='<div class="card"><div class="empty">🎉 目前沒有錯題！<br><small>去做測驗，答錯的題目會自動收進這裡。</small></div></div>';return;}
+  const topics={};keys.forEach(k=>{const f=findKey(k);const t=f.b.topic||f.p.topic;topics[t]=(topics[t]||0)+1;});
+  const chips=Object.entries(topics).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span>${t} × ${n}</span>`).join('');
+  let h=`<div class="card"><h2>📕 錯題本：${keys.length} 題待複習</h2><p class="ins">先自己再答一次，按「檢查」；答對的題目就會從錯題本移除。卡住時再展開「看解析」。</p><div class="chips"><b>最需要複習：</b>${chips}</div><div class="bar"><button class="btn ghost" data-act="clearwrong">清空錯題本</button></div></div>`;
+  keys.forEach(k=>{
+    const {p,b}=findKey(k);
+    h+=`<div class="rv" data-k="${k}"><div class="rvh">${p.lesson}　${p.no}　${p.title}${b.src?'　['+b.src+']':''}　｜　上次你的答案：${wrong[k]}</div>
+      <div class="rvq">${ctxHtml(b)}</div>
+      <div class="bar"><button class="btn" data-act="rcheck" data-k="${k}">檢查</button><span class="res"></span></div>
+      <details><summary>看解析</summary><div class="why">📖 ${b.exp}<br>答案：<b>${ansTxt(b)}</b></div></details></div>`;
+  });
+  box.innerHTML=h;
+}
+function recheck(k){
+  const card=document.querySelector(`.rv[data-k="${k}"]`);const {b}=findKey(k);
+  const el=card.querySelector('[data-rk]');const ok=judge(b,valOf(el));
+  el.classList.remove('ok','bad');el.classList.add(ok?'ok':'bad');
+  const r=card.querySelector('.res');
+  if(ok){r.textContent='🎉 答對了！已移出錯題本';delete wrong[k];save();tally();card.querySelector('details').open=true;el.disabled=true;card.querySelector('[data-act="rcheck"]').disabled=true;}
+  else{r.textContent='❌ 再想想，可以看解析';}
+}
+
+const last={};
+function stageRow(g){
+  return `<div class="stages s-${g.k}" data-g="${g.k}"><span class="stl">${g.name.split(' ')[0]}</span>${parts.filter(p=>p.unit===g.k).map((p,i)=>`<button class="bb" data-go="${p.id}" id="bb-${p.id}" title="${p.title}"><b>${i+1}</b><span>${(p.unit==='E'||p.unit==='F')?p.title:p.lesson.replace('第','L').replace('課','')+'　'+p.title}</span></button>`).join('')}</div>`;
+}
+function buildNav(){
+  $('#topnav').innerHTML=`<button class="tab t-sum" data-tab="sum">📒 文法重點</button>`
+   +GROUPS.map(g=>`<button class="tab t-${g.k}" data-tab="${g.k}">${g.e} ${g.name}<small>${g.en}</small></button>`).join('')
+   +`<button class="tab t-wr" data-tab="wr">📕 錯題本<span id="wrongBadge">0</span></button>`;
+  $('#stages').innerHTML=GROUPS.map(stageRow).join('');
+}
+function mountMini(random){
+  miniRandom=random;
+  for(let i=parts.length-1;i>=0;i--){if(parts[i].unit==='F'){delete state[parts[i].id];const pg=document.getElementById('pg-'+parts[i].id);if(pg)pg.remove();parts.splice(i,1);}}
+  miniParts(random).forEach(p=>parts.push(p));
+  parts.filter(p=>p.unit==='F').forEach(p=>$('#pages').appendChild(buildPart(p)));
+}
+function mountSchool(){
+  for(let i=parts.length-1;i>=0;i--){if(parts[i].unit==='E'){delete state[parts[i].id];const pg=document.getElementById('pg-'+parts[i].id);if(pg)pg.remove();parts.splice(i,1);}}
+  schoolParts().forEach(p=>parts.push(p));
+  parts.filter(p=>p.unit==='E').forEach(p=>$('#pages').appendChild(buildPart(p)));
+}
+parts.forEach(p=>{if(p.kind==='order'){p.kind='mixed';p.items=p.lines.map((line,i)=>{const f=line.split('|||');return {t:'write',uid:p.id+'#'+i,q:f[0],ans:f[1].split('/'),exp:f[2],topic:f[4]||p.topic};});}});
+schoolParts().forEach(p=>parts.push(p));
+miniParts(false).forEach(p=>parts.push(p));
+buildNav();
+parts.forEach(p=>{$('#pages').appendChild(buildPart(p));});
+let curId='sum';
+function showPage(id){
+  curId=id;
+  document.querySelectorAll('.page').forEach(pg=>pg.classList.toggle('on',pg.id==='pg-'+id));
+  const p=parts.find(x=>x.id===id);const tab=p?p.unit:id;
+  if(p)last[p.unit]=id;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));
+  document.querySelectorAll('.stages').forEach(s=>s.classList.toggle('show',!!p&&s.dataset.g===p.unit));
+  document.querySelectorAll('.bb').forEach(b=>b.classList.toggle('on',b.dataset.go===id));
+  if(id==='wr')renderWrong();
+  const on=document.querySelector('.bb.on');if(on&&typeof on.scrollIntoView==='function')on.scrollIntoView({block:'nearest',inline:'center'});
+  window.scrollTo(0,0);
+}
+document.addEventListener('change',e=>{
+  const r=e.target;
+  if(r.type==='radio'&&r.name&&r.name.indexOf('r-')===0){
+    const li=r.closest('li');li.querySelector('.mcval').value=r.value;
+    li.querySelectorAll('.mco').forEach(l=>l.classList.toggle('sel',l.contains(r)&&r.checked));
+  }
+});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.tok');if(t){if(!t.disabled)moveTok(t);return;}
+  const tb=e.target.closest('[data-tab]');
+  if(tb){const k=tb.dataset.tab;showPage(k==='sum'||k==='wr'?k:(last[k]||parts.find(p=>p.unit===k).id));return;}
+  const g=e.target.closest('[data-go]');if(g){showPage(g.dataset.go);return;}
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const a=b.dataset.act;
+  if(a==='check')checkPart(parts.find(p=>p.id===b.dataset.p));
+  else if(a==='reset')resetPart(parts.find(p=>p.id===b.dataset.p));
+  else if(a==='rcheck')recheck(b.dataset.k);
+  else if(a==='minimode'){if(confirm('切換後會清除 MiniTest 目前的作答與分數（錯題本不受影響），確定嗎？')){mountMini(b.dataset.rnd==='1');const row=document.querySelector('.stages.s-F');row.outerHTML=stageRow(GROUPS.find(g=>g.k==='F'));tally();showPage('F-1');}}
+  else if(a==='selfok'){const p=parts.find(x=>x.id===b.dataset.p);const bl=p.blanks[+b.dataset.i];const xp=b.closest('.xp');xp.className='xp okx';xp.innerHTML='✅ 自評正確　<span class="why">參考答案：'+ansTxt(bl)+'</span>';const inp=document.querySelector('#part-'+p.id+' [data-i="'+b.dataset.i+'"]');if(inp){inp.classList.remove('bad');inp.classList.add('ok');}delete wrong[bl.uid];state[p.id].sc++;save();showRes(p);tally();}
+  else if(a==='reshuffle'){if(confirm('重新洗牌會清除「裕德考題」這幾回目前的作答與分數（錯題本不受影響），確定嗎？')){mountSchool();const row=document.querySelector('.stages.s-E');row.outerHTML=stageRow(GROUPS.find(g=>g.k==='E'));tally();showPage('E-1');}}
+  else if(a==='clearwrong'){if(confirm('確定要清空錯題本嗎？')){wrong={};save();tally();renderWrong();}}
+});
+tally();
+showPage('sum');
 </script></body></html>
