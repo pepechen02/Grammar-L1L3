@@ -182,6 +182,23 @@ input.wr{display:block;width:100%;max-width:100%;margin:8px 0 0;text-align:left;
 @media(max-width:560px){.mcopts{grid-template-columns:1fr}}
 @media(max-width:700px){.card{padding:18px 16px;border-radius:22px}.q li{font-size:16px;padding-left:46px}.hero{padding:18px}.hero-r{min-width:100%}}
 @media print{.sticky,.hero,.bar,.pn{display:none}body{background:#fff}.card{box-shadow:none}.page{display:block!important}#pg-wr{display:none!important}}
+
+/* print button (summary page) */
+.printbar{display:flex;justify-content:flex-end;margin:4px 0 -6px}
+.printbtn{border:none;cursor:pointer;background:#fff;color:var(--ink);border-radius:999px;padding:8px 18px;font-size:15px;box-shadow:0 3px 10px rgba(32,49,79,.12);display:inline-flex;align-items:center;gap:6px}
+.printbtn:hover{background:var(--yel)}
+@page{size:A4;margin:12mm}
+body.print-sum .page{display:none!important}
+body.print-sum #pg-sum{display:block!important}
+@media print{
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .printbar{display:none!important}
+ body.print-sum{background:#fff;background-image:none}
+ body.print-sum .wrap{max-width:none;padding:0}
+ body.print-sum .card{break-inside:avoid;box-shadow:none;border:1px solid #e3eef9;margin:10px 0;padding:16px 18px}
+ body.print-sum .unit-title{break-after:avoid;box-shadow:none}
+ body.print-sum .tablewrap{overflow:visible}
+}
 </style>
 </head>
 <body>
@@ -193,6 +210,7 @@ input.wr{display:block;width:100%;max-width:100%;margin:8px 0 0;text-align:left;
 <div class="sticky"><nav id="topnav"></nav><div id="stages"></div></div>
 <main id="pages">
 <section class="page on" id="pg-sum">
+<div class="printbar"><button class="printbtn" type="button" onclick="printSummary()" title="列印（A4）或另存 PDF">🖨️ 列印／存成 PDF（A4）</button></div>
 <div class="unit-title d">第1課　過去簡單式：規則動詞　Simple Past: Regular Verbs</div>
 
 <div class="card u5">
@@ -1188,6 +1206,12 @@ miniParts(false).forEach(p=>parts.push(p));
 buildNav();
 parts.forEach(p=>{$('#pages').appendChild(buildPart(p));});
 let curId='sum';
+function printSummary(){
+  document.body.classList.add('print-sum');
+  const done=()=>{document.body.classList.remove('print-sum');window.removeEventListener('afterprint',done)};
+  window.addEventListener('afterprint',done);
+  setTimeout(()=>window.print(),50);
+}
 function showPage(id){
   curId=id;
   document.querySelectorAll('.page').forEach(pg=>pg.classList.toggle('on',pg.id==='pg-'+id));
